@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "importsNotUsedAsValues": "error",
+        "module": "CommonJS",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
+        "target": "ES2020"
+    },
+    "include": ["./src"]
+}

@@ -1,0 +1,16 @@
+project: realworld
+
+containers:
+    - conduit_cypress_1
+    - conduit_client_1
+    - conduit_mongo_1
+    - conduit_api_1
+
+pre_commands:
+    - make -C ../argos-realworld setup-test
+    - make -C ../argos-realworld restore
+
+commands:
+    - make -C ../argos-realworld run-test
+
+out_dir: ./measures_directory
