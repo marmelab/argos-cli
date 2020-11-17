@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { safeLoad } from "js-yaml";
-import * as async from "./async";
-import { gatherStats } from "./gatherStats";
+import * as async from "../async";
+import { gatherStats } from "../gatherStats";
 
 export const run = async (args: {
     path: string;

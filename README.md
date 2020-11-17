@@ -3,22 +3,14 @@
 Auditing Reporter for Greener Ops Strategies
 
 Tool to measure consumption of a given Docker command and see its performance evolution.
-Argos is able to measure CPU, memory and network usage of Docker containers for a given command.
+Argos CLI is able to measure CPU, memory, disk and network usage of Docker containers for a given command.
 By measuring resource consumption of dockerized E2E tests, Argos allows to compare the consumption of an app between its different versions.
 
-Argos use the collected metrics to generate chart per Docker container and metrics.
+Argos uses the collected metrics to evaluate energy consumption and generate charts for Docker containers.
 
-## Requirements
-
--   Docker
--   Docker Compose
--   yarn
-
-The tool is divided into 3 packages:
-
--   **cli**: the CLI to collect metrics from other programs
--   **api**: the API to display and analyse collected metrics
--   **web**: the website to display and analyse collected metrics
+## Requirements for Argos CLI
+-   A running API (Argos server)
+-   nodeJS
 
 ## ARGOS-CLI
 
@@ -47,12 +39,12 @@ Options:
 
 Examples:
   ./bin/argos.sh run ./my_project.yml -r my_revision
-  ./bin/argos.sh run ./my_project.yml -r my_revision -t 2
+  ./bin/argos.sh run ./my_project.yml -r my_revision -s 2
 ```
 
 **Configuration file .yml:**
 
-Example is provided in `./realworld.argos.yml`
+An example is provided in `./realworld.argos.yml`
 
 ```yml
 project: realworld
@@ -93,34 +85,29 @@ Options:
   -u, --url                          [string] [default: "http://localhost:3001"]
 
 Examples:
-  argos upload tmp/my_project/my_revision-*.json
-  argos upload tmp/**/*.json -- -u http://example.com
+  argos upload measures_directory/my_project/my_revision-*.json
+  argos upload measures_directory/**/*.json -- -u http://my-api-server.com
 ```
 
-## Database management
-
-To connect to server db:
+### Drop stats from API
 
 ```sh
-./bin/mongo.sh
+./bin/argos.sh drop --help
 ```
 
-There are 3 documents:
-
--   `measure`: Each individual measure for each container
--   `report`: Agregate measures for each container (these are computed and returned to the web interface)
--   `stat`
-
-```sh
-./bin/mongo.sh --eval='db.measure.find({}).pretty();'
-./bin/mongo.sh --eval='db.report.find({}).pretty();'
-./bin/mongo.sh --eval='db.stat.find({}).pretty();'
 ```
+argos drop <project>
 
-Resetting db is done with following command:
+Positionals:
+  project                                                    [string] [required]
 
-```sh
-./bin/mongo.sh --eval='db.dropDatabase();'
+Options:
+      --help  Show help                                                [boolean]
+  -u, --url                          [string] [default: "http://localhost:3001"]
+
+Examples:
+  argos drop my_project
+  argos drop my_project -- -u http://my-api-server.com
 ```
 
 ## Demo

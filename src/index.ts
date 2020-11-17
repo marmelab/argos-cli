@@ -1,6 +1,7 @@
 import yargs from "yargs";
-import { run } from "./run";
-import { upload } from "./upload";
+import { run } from "./commands/run";
+import { upload } from "./commands/upload";
+import { drop } from "./commands/drop";
 
 yargs(process.argv.slice(2))
     .scriptName("argos")
@@ -46,6 +47,24 @@ yargs(process.argv.slice(2))
                 ]);
         },
         upload,
+    )
+    .command<Parameters<typeof drop>[0]>(
+        "drop <project>",
+        "",
+        (yargs) => {
+            yargs
+                .positional("project", { type: "string" })
+                .option("url", {
+                    alias: "u",
+                    default: "http://localhost:3001",
+                    type: "string",
+                })
+                .example([
+                    ["$0 drop my_project", ""],
+                    ["$0 drop my_project -- -u http://example.com", ""],
+                ]);
+        },
+        drop,
     )
     .strict()
     .version(false)
