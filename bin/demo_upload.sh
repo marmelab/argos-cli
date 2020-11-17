@@ -8,6 +8,11 @@ echo "DIR is '$DIR'"
 ARGOS="$DIR/argos.sh"
 TMP_DIR="$DIR/../tmp"
 
+$ARGOS drop project_a
+$ARGOS drop project_b
+$ARGOS drop project_c
+$ARGOS drop project_realword
+
 $ARGOS upload "$TMP_DIR"/project_a/revision_a/{1..1}/*.json
 $ARGOS upload "$TMP_DIR"/project_b/{revision_a,revision_b}/{1..2}/*.json
 $ARGOS upload "$TMP_DIR"/project_c/revision_a/{1..5}/*.json

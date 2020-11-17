@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as fs from "fs";
-import type { Meta, StatsJSON } from "./types";
+import type { Meta, StatsJSON } from "../types";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
