@@ -6,5 +6,5 @@ export const drop = async (args: { project: string; url: string }): Promise<void
     const response = await axios.post<number>(
         `${args.url}/projects/${args.project}/drop`,
     );
-    console.log(`${response.data} stats droped`);
+    console.log(`${response.data} stats dropped`);
 };

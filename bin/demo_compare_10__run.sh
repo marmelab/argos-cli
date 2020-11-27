@@ -7,6 +7,7 @@ echo "DIR is '$DIR'"
 
 ARGOS="$DIR/argos.sh"
 APP_PATH="$DIR/../../argos-realworld"
+TIMELINE_PATH="$APP_PATH/tests/tmp/timeline.txt"
 
 PROJECT="project_realworld"
 TMP_DIR="$DIR/../tmp"
@@ -31,6 +32,7 @@ commands:
     - make -C $APP_PATH run-test
 
 out_dir: $TMP_DIR
+timeline: $TIMELINE_PATH
 EOF
 
 $ARGOS run \

@@ -14,6 +14,7 @@ export const run = async (args: {
         pre_commands: string[];
         commands: string[];
         out_dir: string;
+        timeline: string;
     }>(fs.readFileSync(args.path, "utf8"));
 
     fs.lstatSync(config.out_dir).isDirectory();
@@ -50,8 +51,13 @@ export const run = async (args: {
             }
         }
 
+        await async.copyFile(config.timeline, `${directory}/timeline.txt`);
+
         childProcesses.forEach((childProcess) => {
-            childProcess.kill();
+            // timeout is there to be sure we retrieve the end of the stream
+            setTimeout(() => {
+                childProcess.kill();
+            }, 5000);
         });
     }
 };
