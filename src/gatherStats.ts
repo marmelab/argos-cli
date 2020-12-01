@@ -11,24 +11,24 @@ export const gatherStats = (
     ]);
     const buffers: Buffer[] = [];
 
-    childProcess.stdout
-        .on("data", (buffer) => {
-            buffers.push(buffer);
-        })
-        .on("close", () => {
-            const lines: string[] = buffers
-                .map((buffer) => buffer.toString())
-                .join("")
-                .split("\n");
+    childProcess.stdout.on("data", (buffer) => {
+        buffers.push(buffer);
+    });
+    childProcess.on("close", () => {
+        console.log(`close ${container}:`, new Date());
+        const lines: string[] = buffers
+            .map((buffer) => buffer.toString())
+            .join("")
+            .split("\n");
 
-            try {
-                JSON.parse(lines[lines.length - 1]);
-            } catch {
-                lines.pop();
-            }
+        try {
+            JSON.parse(lines[lines.length - 1]);
+        } catch {
+            lines.pop();
+        }
 
-            callback(`[${lines.join(",")}]`);
-        });
+        callback(`[${lines.join(",")}]`);
+    });
 
     return childProcess;
 };
