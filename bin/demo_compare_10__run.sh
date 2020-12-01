@@ -7,14 +7,15 @@ echo "DIR is '$DIR'"
 
 ARGOS="$DIR/argos.sh"
 APP_PATH="$DIR/../../argos-realworld"
+TIMELINE_PATH="$APP_PATH/tests/data/timeline.txt"
 
 PROJECT="project_realworld"
-TMP_DIR="$DIR/../tmp"
-mkdir -p "$TMP_DIR"
+DATA_DIR="$DIR/../data"
+mkdir -p "$DATA_DIR"
 # shellcheck disable=SC2115
-rm -rfv "$TMP_DIR/$PROJECT"
+rm -rfv "$DATA_DIR/$PROJECT"
 
-cat << EOF > "$TMP_DIR/$PROJECT.yml"
+cat << EOF > "$DATA_DIR/$PROJECT.yml"
 project: $PROJECT
 
 containers:
@@ -30,11 +31,12 @@ pre_commands:
 commands:
     - make -C $APP_PATH run-test
 
-out_dir: $TMP_DIR
+out_dir: $DATA_DIR
+timeline: $TIMELINE_PATH
 EOF
 
 $ARGOS run \
-    "$TMP_DIR/$PROJECT.yml" \
+    "$DATA_DIR/$PROJECT.yml" \
     --revision="initial_code" \
     --samples=10
 
@@ -43,7 +45,7 @@ git apply broken.diff
 cd -
 
 $ARGOS run \
-    "$TMP_DIR/$PROJECT.yml" \
+    "$DATA_DIR/$PROJECT.yml" \
     --revision="broken_code" \
     --samples=10
 

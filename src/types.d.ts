@@ -5,6 +5,13 @@ export type Meta = {
     container: string;
 };
 
+export type IntervalJSON = {
+    started: string;
+    ended: string;
+    elapsed: string;
+    title: string;
+};
+
 // https://github.com/moby/moby/blob/c1d090fcc88fa3bc5b804aead91ec60e30207538/api/types/stats.go#L172-L181
 export type StatsJSON = Stats & {
     name: string;

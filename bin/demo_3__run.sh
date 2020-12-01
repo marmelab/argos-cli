@@ -7,14 +7,15 @@ echo "DIR is '$DIR'"
 
 ARGOS="$DIR/argos.sh"
 APP_PATH="$DIR/../../argos-realworld"
+TIMELINE_PATH="$APP_PATH/tests/data/timeline.txt"
 
 PROJECT="project_c"
-TMP_DIR="$DIR/../tmp"
-mkdir -p "$TMP_DIR"
+DATA_DIR="$DIR/../data"
+mkdir -p "$DATA_DIR"
 # shellcheck disable=SC2115
-rm -rfv "$TMP_DIR/$PROJECT"
+rm -rfv "$DATA_DIR/$PROJECT"
 
-echo "TMP_DIR is '$TMP_DIR'"
+echo "DATA_DIR is '$DATA_DIR'"
 $ARGOS run <(echo "
 project: $PROJECT
 
@@ -31,7 +32,8 @@ pre_commands:
 commands:
     - make -C $APP_PATH run-test
 
-out_dir: $TMP_DIR
+out_dir: $DATA_DIR
+timeline: $TIMELINE_PATH
 ") \
     --revision="revision_a" \
     --samples=5

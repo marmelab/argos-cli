@@ -42,8 +42,8 @@ yargs(process.argv.slice(2))
                     type: "string",
                 })
                 .example([
-                    ["$0 upload tmp/my_project/my_revision-*.json", ""],
-                    ["$0 upload tmp/**/*.json -- -u http://example.com", ""],
+                    ["$0 upload data/my_project/my_revision-*.json", ""],
+                    ["$0 upload data/**/*.json -- -u http://example.com", ""],
                 ]);
         },
         upload,
