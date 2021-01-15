@@ -63,6 +63,8 @@ commands: # Commands to run to processes automated actions in the app to be meas
     - make -C ../argos-realworld run-test
 
 out_dir: ./measures_directory # Local path to stored measures
+
+timeline: ./measures_directory/timeline.txt # Local path to timeline log
 ```
 
 After the execution, measures files will be available in JSON format at:
