@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# API_DIR=node-express
+# CLIENT_DIR=react-redux
+# BROKEN_PATCH=broken.diff
+# SAMPLES=1
+
 set -eu
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -7,13 +12,14 @@ echo "DIR is '$DIR'"
 
 ARGOS="$DIR/argos.sh"
 DATA_DIR="$DIR/../data"
+PROJECT="$API_DIR"-"$CLIENT_DIR"-"$SAMPLES"
 
-$ARGOS drop project_a
-$ARGOS drop project_b
-$ARGOS drop project_c
-$ARGOS drop project_realword
+$ARGOS drop "$PROJECT"
 
-$ARGOS upload "$DATA_DIR"/project_a/revision_a/{1..1}/*.json
-$ARGOS upload "$DATA_DIR"/project_b/{revision_a,revision_b}/{1..2}/*.json
-$ARGOS upload "$DATA_DIR"/project_c/revision_a/{1..5}/*.json
-$ARGOS upload "$DATA_DIR"/project_realworld/{initial_code,broken_code}/{1..10}/*.json
+if [[ -z "${BROKEN_PATCH+x}" ]]; then
+    echo "no BROKEN_PATCH supplied";
+    $ARGOS upload "$DATA_DIR"/"$PROJECT"/initial/*/*.json
+else
+    echo "BROKEN_PATCH=$BROKEN_PATCH";
+    $ARGOS upload "$DATA_DIR"/"$PROJECT"/{initial,"$BROKEN_PATCH"}/*/*.json
+fi

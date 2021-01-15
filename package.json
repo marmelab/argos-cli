@@ -5,7 +5,7 @@
         "lint-fix": "eslint . --ext .ts --fix"
     },
     "dependencies": {
-        "axios": "0.20.0",
+        "axios": "0.21.1",
         "js-yaml": "3.14.0",
         "yargs": "16.1.0"
     },

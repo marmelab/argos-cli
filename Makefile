@@ -6,3 +6,31 @@ help:
 install: ## fresh install
 	yarn
 	yarn tsc
+
+demo_all: demo1 demo2 demo3
+
+upload_all: upload_demo1 upload_demo2 upload_demo3
+
+demo1:
+	API_DIR=node-express CLIENT_DIR=react-redux SAMPLES=1 \
+    ./bin/demo_run.sh
+
+upload_demo1:
+	API_DIR=node-express CLIENT_DIR=react-redux SAMPLES=1 \
+    ./bin/demo_upload.sh
+
+demo2:
+	API_DIR=node-express CLIENT_DIR=react-redux SAMPLES=2 \
+    BROKEN_PATCH=broken.diff ./bin/demo_run.sh
+
+upload_demo2:
+	API_DIR=node-express CLIENT_DIR=react-redux SAMPLES=2 \
+    BROKEN_PATCH=broken.diff ./bin/demo_upload.sh
+
+demo3:
+	API_DIR=node-express CLIENT_DIR=vanilla-js-web-components SAMPLES=2 \
+    BROKEN_PATCH=broken.diff ./bin/demo_run.sh
+
+upload_demo3:
+	API_DIR=node-express CLIENT_DIR=vanilla-js-web-components SAMPLES=2 \
+    BROKEN_PATCH=broken.diff ./bin/demo_upload.sh
