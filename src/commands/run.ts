@@ -21,18 +21,18 @@ export const run = async (args: {
 
     fs.lstatSync(config.out_dir).isDirectory();
 
-    for (const preCommand of config.pre_commands) {
-        console.log(preCommand);
-        const result = await async.exec(preCommand);
-        if (result.stderr) {
-            console.error(result.stderr);
-        } else {
-            console.log(result.stdout);
-        }
-    }
-
     for (let sample = 0; sample <= args.samples; sample++) {
         console.log(`Sample #${sample}`);
+
+        for (const preCommand of config.pre_commands) {
+            console.log(preCommand);
+            const result = await async.exec(preCommand);
+            if (result.stderr) {
+                console.error(result.stderr);
+            } else {
+                console.log(result.stdout);
+            }
+        }
 
         const directory = `${config.out_dir}/${config.project}/${args.revision}/${sample}`;
         await async.mkdir(directory, { recursive: true });
