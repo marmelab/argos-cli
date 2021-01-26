@@ -20,7 +20,6 @@ export const run = async (args: {
     }>(fs.readFileSync(args.path, "utf8"));
 
     fs.lstatSync(config.out_dir).isDirectory();
-
     for (const preCommand of config.pre_commands) {
         console.log(preCommand);
         const result = await async.exec(preCommand);

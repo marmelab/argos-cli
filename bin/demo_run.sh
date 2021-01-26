@@ -31,9 +31,9 @@ containers:
 
 pre_commands:
     - make -C $APP_PATH setup-test API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
-    - make -C $APP_PATH restore API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
 
 commands:
+    - make -C $APP_PATH restore API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
     - make -C $APP_PATH run-test API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
 
 out_dir: $DATA_DIR
@@ -51,8 +51,8 @@ if [[ -z "${BROKEN_PATCH+x}" ]]; then
     echo "no BROKEN_PATCH supplied";
 else
     echo "BROKEN_PATCH=$BROKEN_PATCH";
-    cd "$APP_PATH/$API_DIR"
-    git apply "$BROKEN_PATCH"
+    cd "$APP_PATH"
+    git apply "$API_DIR"/"$BROKEN_PATCH"
     cd -
 
     echo "Run Argos on broken project"
@@ -61,7 +61,7 @@ else
         --revision="$BROKEN_PATCH" \
         --samples="$SAMPLES"
     rm -rf "$DATA_DIR"/"$PROJECT"/"$BROKEN_PATCH"/0
-    cd "$APP_PATH/$API_DIR"
-    git apply --reverse "$BROKEN_PATCH"
+    cd "$APP_PATH"
+    git apply --reverse "$API_DIR"/"$BROKEN_PATCH"
     cd -
 fi
