@@ -9,8 +9,8 @@ By measuring resource consumption of dockerized E2E tests, Argos allows to compa
 Argos uses the collected metrics to evaluate energy consumption and generate charts for Docker containers.
 
 ## Requirements for Argos CLI
--   A running API (Argos server)
 -   nodeJS
+-   A running API (Argos server) to upload data
 
 ## ARGOS-CLI
 
@@ -63,10 +63,11 @@ commands: # Commands to run to processes automated actions in the app to be meas
     - make -C ../argos-realworld run-test
 
 out_dir: ./measures_directory # Local path to stored measures
+timeline: ../argos-realworld/tests/data/timeline.txt # Local path to timeline log
 ```
 
 After the execution, measures files will be available in JSON format at:
-`./measures_directory/tested_app/`
+`./measures_directory/realword/`
 
 ### Upload stats to API
 

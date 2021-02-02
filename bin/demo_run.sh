@@ -30,10 +30,10 @@ containers:
     - conduit_api_1
 
 pre_commands:
-    - make -C $APP_PATH setup-test API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
+    - make -C $APP_PATH setup-test API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR > /dev/null 2>&1
 
 commands:
-    - make -C $APP_PATH restore API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
+    - make -C $APP_PATH restore API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR > /dev/null 2>&1
     - make -C $APP_PATH run-test API_DIR=$API_DIR CLIENT_DIR=$CLIENT_DIR
 
 out_dir: $DATA_DIR
