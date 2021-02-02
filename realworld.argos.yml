@@ -8,9 +8,10 @@ containers:
 
 pre_commands:
     - make -C ../argos-realworld setup-test
-    - make -C ../argos-realworld restore
 
 commands:
+    - make -C ../argos-realworld restore
     - make -C ../argos-realworld run-test
 
 out_dir: ./measures_directory
+timeline: ../argos-realworld/tests/data/timeline.txt
