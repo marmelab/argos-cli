@@ -1,7 +1,7 @@
 {
-  "name": "argos-cli",
+  "name": "docker-compose-stats-cli",
   "version": "1.0.0",
-  "description": "Argos CLI utility tool",
+  "description": "Docker-compose stats CLI utility tool",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
