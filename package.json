@@ -1,6 +1,6 @@
 {
   "name": "docker-compose-stats-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Docker-compose stats CLI utility tool",
   "main": "dist/index.js",
   "bin": "dist/index.js",
