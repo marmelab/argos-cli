@@ -5,3 +5,4 @@ data
 tmp
 macbook
 macpro
+!dist/.npmignore
