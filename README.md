@@ -33,13 +33,15 @@ Positionals:
   path                                                       [string] [required]
 
 Options:
-      --help      Show help                                            [boolean]
+      --help        Show help                                          [boolean]
   -r, --revision                                             [string] [required]
   -s, --samples                                            [number] [default: 1]
+  -m, --socketMode                                    [string] [default: "unix"]
 
 Examples:
-  ./bin/argos.sh run ./my_project.yml -r my_revision
-  ./bin/argos.sh run ./my_project.yml -r my_revision -s 2
+  argos run ./my_project.yml -r my_revision
+  argos run ./my_project.yml -r my_revision -t 2
+  argos run ./my_project.yml -r my_revision -t 2 -m windows
 ```
 
 **Configuration file .yml:**
