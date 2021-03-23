@@ -1,17 +1,20 @@
 import * as child_process from "child_process";
+import * as path from "path";
 
 export const gatherStats = (
     container: string,
     socketPath: string,
     callback: (stats: string) => void,
 ): child_process.ChildProcess => {
-    const childProcess = child_process.fork("getStatOfContainer.ts", [
+    const childProcess = child_process.fork(path.resolve(__dirname, "./getStatOfContainer"), [
         socketPath,
         `/containers/${container}/stats`,
     ]);
     const buffers: Buffer[] = [];
-    childProcess.stdout?.on("data", (buffer) => {
-        buffers.push(buffer);
+    childProcess.on("message", (res: {
+        data: []
+    }) => {
+        buffers.push(Buffer.from(res.data));
     });
 
     childProcess.on("close", () => {

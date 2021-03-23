@@ -7,7 +7,11 @@ const options = {
 };
 
 const callback = (res: http.IncomingMessage) => {
-    res.on("data", (data) => console.log(data));
+    res.on("data", (data: Buffer) => {
+        if (process.send) {
+            process.send(data);
+        }
+    });
 };
 
 const clientRequest = http.request(options, callback);

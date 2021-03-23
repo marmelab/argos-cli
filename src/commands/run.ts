@@ -19,7 +19,7 @@ export const run = async (args: {
         out_dir: string;
         timeline: string;
     }>(fs.readFileSync(args.path, "utf8"));
-
+    console.log(args.socketPath);
     fs.lstatSync(config.out_dir).isDirectory();
     for (const preCommand of config.pre_commands) {
         console.log(preCommand);
