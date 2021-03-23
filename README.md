@@ -39,9 +39,9 @@ Options:
   -m, --socketMode                                    [string] [default: "unix"]
 
 Examples:
-  argos run ./my_project.yml -r my_revision
-  argos run ./my_project.yml -r my_revision -t 2
-  argos run ./my_project.yml -r my_revision -t 2 -m windows
+  ./bin/argos.sh run ./my_project.yml -r my_revision
+  ./bin/argos.sh run ./my_project.yml -r my_revision -t 2
+  ./bin/argos.sh run ./my_project.yml -r my_revision -t 2 -m windows
 ```
 
 **Configuration file .yml:**
