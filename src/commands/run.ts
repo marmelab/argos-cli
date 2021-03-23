@@ -14,7 +14,7 @@ export const run = async (args: {
     path: string;
     revision: string;
     samples: number;
-    socketMode: string;
+    socketMode: "unix" | "windows";
 }): Promise<void> => {
     const config = safeLoad<{
         project: string;
