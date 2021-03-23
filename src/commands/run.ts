@@ -5,16 +5,16 @@ import * as async from "../async";
 import { gatherStats } from "../gatherStats";
 import type { IntervalJSON } from "../types";
 
-enum SocketModeEnum {
-    Windows = "//./pipe/docker_engine",
-    Unix = "/var/run/docker.sock",
-}
+const socketMode = {
+    windows: "//./pipe/docker_engine",
+    unix: "/var/run/docker.sock",
+} as const;
 
 export const run = async (args: {
     path: string;
     revision: string;
     samples: number;
-    socketMode: "unix" | "windows";
+    socketMode: keyof typeof socketMode;
 }): Promise<void> => {
     const config = safeLoad<{
         project: string;
@@ -26,8 +26,7 @@ export const run = async (args: {
     }>(fs.readFileSync(args.path, "utf8"));
     fs.lstatSync(config.out_dir).isDirectory();
 
-    const socketPath =
-        args.socketMode === "windows" ? SocketModeEnum.Windows : SocketModeEnum.Unix;
+    const socketPath = socketMode[args.socketMode];
 
     for (const preCommand of config.pre_commands) {
         const result = await async.exec(preCommand);
