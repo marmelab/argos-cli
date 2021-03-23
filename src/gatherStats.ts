@@ -2,18 +2,18 @@ import * as child_process from "child_process";
 
 export const gatherStats = (
     container: string,
+    socketPath: string,
     callback: (stats: string) => void,
-): child_process.ChildProcessWithoutNullStreams => {
-    const childProcess = child_process.spawn("curl", [
-        "--unix-socket",
-        "/var/run/docker.sock",
-        `http://localhost/containers/${container}/stats`,
+): child_process.ChildProcess => {
+    const childProcess = child_process.fork("getStatOfContainer.ts", [
+        socketPath,
+        `/containers/${container}/stats`,
     ]);
     const buffers: Buffer[] = [];
-
-    childProcess.stdout.on("data", (buffer) => {
+    childProcess.stdout?.on("data", (buffer) => {
         buffers.push(buffer);
     });
+
     childProcess.on("close", () => {
         console.log(`close ${container}:`, new Date());
         const lines: string[] = buffers

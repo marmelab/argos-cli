@@ -23,9 +23,18 @@ yargs(process.argv.slice(2))
                     default: 1,
                     type: "number",
                 })
+                .option("socketPath", {
+                    alias: "so",
+                    default: "/var/run/docker.sock",
+                    type: "string",
+                })
                 .example([
                     ["$0 run ./my_project.yml -r my_revision", ""],
                     ["$0 run ./my_project.yml -r my_revision -t 2", ""],
+                    [
+                        "$0 run ./my_project.yml -r my_revision -t 2 -so //./pipe/docker_engine",
+                        "",
+                    ],
                 ]);
         },
         run,

@@ -9,6 +9,7 @@ export const run = async (args: {
     path: string;
     revision: string;
     samples: number;
+    socketPath: string;
 }): Promise<void> => {
     const config = safeLoad<{
         project: string;
@@ -39,7 +40,7 @@ export const run = async (args: {
         const stats: Array<{ container: string; stats: string }> = [];
         // spawn the processes before the dockers commands are executed
         const childProcesses = config.containers.map((container) => {
-            return gatherStats(container, (statsStringify) => {
+            return gatherStats(container, args.socketPath, (statsStringify) => {
                 stats.push({ container, stats: statsStringify });
             });
         });
