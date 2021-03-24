@@ -5,10 +5,16 @@ import * as async from "../async";
 import { gatherStats } from "../gatherStats";
 import type { IntervalJSON } from "../types";
 
+const socketMode = {
+    windows: "//./pipe/docker_engine",
+    unix: "/var/run/docker.sock",
+} as const;
+
 export const run = async (args: {
     path: string;
     revision: string;
     samples: number;
+    socketMode: keyof typeof socketMode;
 }): Promise<void> => {
     const config = safeLoad<{
         project: string;
@@ -18,10 +24,11 @@ export const run = async (args: {
         out_dir: string;
         timeline: string;
     }>(fs.readFileSync(args.path, "utf8"));
-
     fs.lstatSync(config.out_dir).isDirectory();
+
+    const socketPath = socketMode[args.socketMode];
+
     for (const preCommand of config.pre_commands) {
-        console.log(preCommand);
         const result = await async.exec(preCommand);
         if (result.stderr) {
             console.error(result.stderr);
@@ -39,7 +46,7 @@ export const run = async (args: {
         const stats: Array<{ container: string; stats: string }> = [];
         // spawn the processes before the dockers commands are executed
         const childProcesses = config.containers.map((container) => {
-            return gatherStats(container, (statsStringify) => {
+            return gatherStats(container, socketPath, (statsStringify) => {
                 stats.push({ container, stats: statsStringify });
             });
         });

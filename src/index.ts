@@ -23,9 +23,15 @@ yargs(process.argv.slice(2))
                     default: 1,
                     type: "number",
                 })
+                .option("socketMode", {
+                    alias: "m",
+                    default: "unix",
+                    type: "string",
+                })
                 .example([
                     ["$0 run ./my_project.yml -r my_revision", ""],
                     ["$0 run ./my_project.yml -r my_revision -t 2", ""],
+                    ["$0 run ./my_project.yml -r my_revision -t 2 -m windows", ""],
                 ]);
         },
         run,
