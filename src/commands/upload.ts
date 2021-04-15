@@ -1,18 +1,20 @@
 import axios from "axios";
 import * as fs from "fs";
-import type { Meta, StatsJSON, IntervalJSON } from "../types";
+import type { Meta, IntervalJSON, GenericStat } from "../types";
+import type { DockerStatsJSON } from "../providers/docker";
+import { docker } from "../providers/docker";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const uploadRawStats = async (
+const uploadGenericStats = async (
     url: string,
     meta: Meta,
-    rawStats: StatsJSON[],
+    stats: GenericStat[],
     intervals: IntervalJSON[],
 ): Promise<void> => {
     const response = await axios.post<number>(
         `${url}/projects/${meta.project}/revisions/${meta.revision}/samples/${meta.sample}/containers/${meta.container}/stats`,
-        { stats: rawStats, intervals },
+        { stats, intervals },
     );
     console.log(`${response.data} stats uploaded`);
 };
@@ -34,11 +36,13 @@ export const upload = async (args: { paths: string[]; url: string }): Promise<vo
             const {
                 stats,
                 intervals,
-            }: { stats: StatsJSON[]; intervals: IntervalJSON[] } = JSON.parse(
+            }: { stats: DockerStatsJSON[]; intervals: IntervalJSON[] } = JSON.parse(
                 fs.readFileSync(path, "utf8"),
             );
+
+            const genericStats = docker.computeGenericStats(stats);
             if (stats?.length > 0 && intervals?.length >= 0) {
-                await uploadRawStats(args.url, meta, stats, intervals);
+                await uploadGenericStats(args.url, meta, genericStats, intervals);
             }
         }
     }

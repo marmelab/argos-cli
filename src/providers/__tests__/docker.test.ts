@@ -1,0 +1,291 @@
+import type { DockerStatsJSON } from "../docker";
+import { docker, sumBlkioStats } from "../docker";
+
+test("computeGenericStats", () => {
+    const stats: DockerStatsJSON[] = [
+        {
+            read: "2020-11-04T10:07:40.940136714Z",
+            preread: "0001-01-01T00:00:00Z",
+            pids_stats: { current: 19 },
+            blkio_stats: {
+                io_service_bytes_recursive: [
+                    { major: 254, minor: 0, op: "Read", value: 22233088 },
+                    { major: 254, minor: 0, op: "Write", value: 0 },
+                    { major: 254, minor: 0, op: "Sync", value: 22233088 },
+                    { major: 254, minor: 0, op: "Async", value: 0 },
+                    { major: 254, minor: 0, op: "Discard", value: 0 },
+                    { major: 254, minor: 0, op: "Total", value: 22233088 },
+                ],
+                io_serviced_recursive: [
+                    { major: 254, minor: 0, op: "Read", value: 601 },
+                    { major: 254, minor: 0, op: "Write", value: 0 },
+                    { major: 254, minor: 0, op: "Sync", value: 601 },
+                    { major: 254, minor: 0, op: "Async", value: 0 },
+                    { major: 254, minor: 0, op: "Discard", value: 0 },
+                    { major: 254, minor: 0, op: "Total", value: 601 },
+                ],
+                io_queue_recursive: [],
+                io_service_time_recursive: [],
+                io_wait_time_recursive: [],
+                io_merged_recursive: [],
+                io_time_recursive: [],
+                sectors_recursive: [],
+            },
+            num_procs: 0,
+            // Storage_stats: {},
+            cpu_stats: {
+                cpu_usage: {
+                    total_usage: 1001461071,
+                    percpu_usage: [249727566, 325249064, 175364138, 251120303],
+                    usage_in_kernelmode: 250000000,
+                    usage_in_usermode: 690000000,
+                },
+                system_cpu_usage: 2331680000000,
+                online_cpus: 4,
+                throttling_data: {
+                    periods: 0,
+                    throttled_periods: 0,
+                    throttled_time: 0,
+                },
+            },
+            precpu_stats: {
+                cpu_usage: {
+                    total_usage: 0,
+                    usage_in_kernelmode: 0,
+                    usage_in_usermode: 0,
+                    percpu_usage: [0, 0, 0, 0],
+                },
+                system_cpu_usage: 0,
+                online_cpus: 4,
+                throttling_data: {
+                    periods: 0,
+                    throttled_periods: 0,
+                    throttled_time: 0,
+                },
+            },
+            memory_stats: {
+                usage: 90443776,
+                max_usage: 90558464,
+                failcnt: 0,
+                stats: {
+                    active_anon: 61095936,
+                    active_file: 6217728,
+                    cache: 24059904,
+                    dirty: 0,
+                    hierarchical_memory_limit: 9223372036854771712,
+                    hierarchical_memsw_limit: 9223372036854771712,
+                    inactive_anon: 0,
+                    inactive_file: 17571840,
+                    mapped_file: 15138816,
+                    pgfault: 21120,
+                    pgmajfault: 99,
+                    pgpgin: 24684,
+                    pgpgout: 3806,
+                    rss: 60948480,
+                    rss_huge: 0,
+                    total_active_anon: 61095936,
+                    total_active_file: 6217728,
+                    total_cache: 24059904,
+                    total_dirty: 0,
+                    total_inactive_anon: 0,
+                    total_inactive_file: 17571840,
+                    total_mapped_file: 15138816,
+                    total_pgfault: 21120,
+                    total_pgmajfault: 99,
+                    total_pgpgin: 24684,
+                    total_pgpgout: 3806,
+                    total_rss: 60948480,
+                    total_rss_huge: 0,
+                    total_unevictable: 0,
+                    total_writeback: 0,
+                    unevictable: 0,
+                    writeback: 0,
+                },
+                limit: 2084032512,
+            },
+            name: "/conduit_api_1",
+            id: "6e12b56c620f9c5257bf88e81fbb9f0a2cc5c5e3f099ab9a261cd3c8d79c7164",
+            networks: {
+                eth0: {
+                    rx_bytes: 778,
+                    rx_packets: 9,
+                    rx_errors: 0,
+                    rx_dropped: 0,
+                    tx_bytes: 0,
+                    tx_packets: 0,
+                    tx_errors: 0,
+                    tx_dropped: 0,
+                },
+            },
+        },
+        {
+            read: "2020-11-04T10:07:41.965268398Z",
+            preread: "2020-11-04T10:07:40.940136714Z",
+            pids_stats: { current: 19 },
+            blkio_stats: {
+                io_service_bytes_recursive: [
+                    { major: 254, minor: 0, op: "Read", value: 22536192 },
+                    { major: 254, minor: 0, op: "Write", value: 0 },
+                    { major: 254, minor: 0, op: "Sync", value: 22536192 },
+                    { major: 254, minor: 0, op: "Async", value: 0 },
+                    { major: 254, minor: 0, op: "Discard", value: 0 },
+                    { major: 254, minor: 0, op: "Total", value: 22536192 },
+                ],
+                io_serviced_recursive: [
+                    { major: 254, minor: 0, op: "Read", value: 606 },
+                    { major: 254, minor: 0, op: "Write", value: 0 },
+                    { major: 254, minor: 0, op: "Sync", value: 606 },
+                    { major: 254, minor: 0, op: "Async", value: 0 },
+                    { major: 254, minor: 0, op: "Discard", value: 0 },
+                    { major: 254, minor: 0, op: "Total", value: 606 },
+                ],
+                io_queue_recursive: [],
+                io_service_time_recursive: [],
+                io_wait_time_recursive: [],
+                io_merged_recursive: [],
+                io_time_recursive: [],
+                sectors_recursive: [],
+            },
+            num_procs: 0,
+            // Storage_stats: {},
+            cpu_stats: {
+                cpu_usage: {
+                    total_usage: 1291005241,
+                    percpu_usage: [394494247, 373147750, 230943580, 292419664],
+                    usage_in_kernelmode: 330000000,
+                    usage_in_usermode: 900000000,
+                },
+                system_cpu_usage: 2335240000000,
+                online_cpus: 4,
+                throttling_data: {
+                    periods: 0,
+                    throttled_periods: 0,
+                    throttled_time: 0,
+                },
+            },
+            precpu_stats: {
+                cpu_usage: {
+                    total_usage: 1001461071,
+                    percpu_usage: [249727566, 325249064, 175364138, 251120303],
+                    usage_in_kernelmode: 250000000,
+                    usage_in_usermode: 690000000,
+                },
+                system_cpu_usage: 2331680000000,
+                online_cpus: 4,
+                throttling_data: {
+                    periods: 0,
+                    throttled_periods: 0,
+                    throttled_time: 0,
+                },
+            },
+            memory_stats: {
+                usage: 101158912,
+                max_usage: 101158912,
+                failcnt: 0,
+                stats: {
+                    active_anon: 68935680,
+                    active_file: 6217728,
+                    cache: 26222592,
+                    dirty: 0,
+                    hierarchical_memory_limit: 9223372036854771712,
+                    hierarchical_memsw_limit: 9223372036854771712,
+                    inactive_anon: 0,
+                    inactive_file: 19599360,
+                    mapped_file: 15409152,
+                    pgfault: 23265,
+                    pgmajfault: 99,
+                    pgpgin: 27258,
+                    pgpgout: 4029,
+                    rss: 68984832,
+                    rss_huge: 0,
+                    total_active_anon: 68935680,
+                    total_active_file: 6217728,
+                    total_cache: 26222592,
+                    total_dirty: 0,
+                    total_inactive_anon: 0,
+                    total_inactive_file: 19599360,
+                    total_mapped_file: 15409152,
+                    total_pgfault: 23265,
+                    total_pgmajfault: 99,
+                    total_pgpgin: 27258,
+                    total_pgpgout: 4029,
+                    total_rss: 68984832,
+                    total_rss_huge: 0,
+                    total_unevictable: 0,
+                    total_writeback: 0,
+                    unevictable: 0,
+                    writeback: 0,
+                },
+                limit: 2084032512,
+            },
+            name: "/conduit_api_1",
+            id: "6e12b56c620f9c5257bf88e81fbb9f0a2cc5c5e3f099ab9a261cd3c8d79c7164",
+            networks: {
+                eth0: {
+                    rx_bytes: 778,
+                    rx_packets: 9,
+                    rx_errors: 0,
+                    rx_dropped: 0,
+                    tx_bytes: 0,
+                    tx_packets: 0,
+                    tx_errors: 0,
+                    tx_dropped: 0,
+                },
+            },
+        },
+    ];
+
+    const res = docker.computeGenericStats(stats);
+
+    expect(res).toHaveLength(2);
+
+    expect(res).toEqual([
+        {
+            date: new Date("2020-11-04T10:07:40.940Z"),
+            cpu: {
+                availableSystemCpuUsage: 0,
+                currentUsageInKernelMode: 0,
+                currentUsageInUserMode: 0,
+            },
+            io: {
+                currentBytes: 0,
+            },
+            memory: {
+                usage: 0,
+            },
+            network: {
+                currentReceived: 0,
+                currentTransmitted: 0,
+            },
+        },
+        {
+            date: new Date("2020-11-04T10:07:41.965Z"),
+            cpu: {
+                availableSystemCpuUsage: 0.89,
+                currentUsageInKernelMode: 0.02,
+                currentUsageInUserMode: 0.0525,
+            },
+            io: {
+                currentBytes: 303104,
+            },
+            network: {
+                currentReceived: 0,
+                currentTransmitted: 0,
+            },
+            memory: { usage: 101158912 },
+        },
+    ]);
+});
+
+test("sumBlkioStats", () => {
+    expect(
+        sumBlkioStats([
+            { major: 8, minor: 0, op: "Write", value: 200 },
+            { major: 8, minor: 0, op: "Total", value: 300 },
+            { major: 8, minor: 0, op: "Write", value: 200 },
+            { major: 8, minor: 0, op: "Total", value: 300 },
+            { major: 8, minor: 1, op: "Write", value: 400 },
+            { major: 8, minor: 1, op: "Total", value: 500 },
+        ]),
+    ).toEqual(800);
+});
