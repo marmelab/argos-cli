@@ -52,12 +52,16 @@ export const run = async (args: {
         });
 
         for (const command of config.commands) {
-            console.log(command);
-            const result = await async.exec(command);
-            if (result.stderr) {
-                console.error(result.stderr);
-            } else {
-                console.log(result.stdout);
+            try {
+                const result = await async.exec(command);
+                if (result.stderr) {
+                    console.error(result.stderr);
+                } else {
+                    console.log(result.stdout);
+                }
+            } catch (e) {
+                console.error(e.stderr);
+                process.exit(e.code);
             }
         }
 
