@@ -1,34 +1,34 @@
 {
-  "name": "docker-compose-stats-cli",
-  "version": "1.1.0",
-  "description": "Docker-compose stats CLI utility tool",
-  "main": "dist/index.js",
-  "bin": "dist/index.js",
-  "files": [
-    "dist/"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix",
-    "prepublish": "tsc"
-  },
-  "dependencies": {
-    "axios": "0.21.1",
-    "js-yaml": "3.14.0",
-    "yargs": "16.1.0"
-  },
-  "devDependencies": {
-    "@types/jest": "26.0.15",
-    "@types/yargs": "15.0.9",
-    "@typescript-eslint/eslint-plugin": "4.7.0",
-    "@typescript-eslint/parser": "4.7.0",
-    "eslint": "7.13.0",
-    "eslint-config-prettier": "6.15.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "jest": "26.6.0",
-    "prettier": "2.1.2",
-    "typescript": "4.0.5"
-  }
+    "name": "docker-compose-stats-cli",
+    "version": "1.1.1",
+    "description": "Docker-compose stats CLI utility tool",
+    "main": "dist/index.js",
+    "bin": "dist/index.js",
+    "files": [
+        "dist/"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "lint": "eslint . --ext .ts",
+        "lint-fix": "eslint . --ext .ts --fix",
+        "prepublish": "tsc"
+    },
+    "dependencies": {
+        "axios": "0.21.1",
+        "js-yaml": "3.14.0",
+        "yargs": "16.1.0"
+    },
+    "devDependencies": {
+        "@types/jest": "26.0.15",
+        "@types/yargs": "15.0.9",
+        "@typescript-eslint/eslint-plugin": "4.7.0",
+        "@typescript-eslint/parser": "4.7.0",
+        "eslint": "7.13.0",
+        "eslint-config-prettier": "6.15.0",
+        "eslint-plugin-prettier": "3.1.4",
+        "jest": "26.6.0",
+        "prettier": "2.1.2",
+        "typescript": "4.0.5"
+    }
 }
