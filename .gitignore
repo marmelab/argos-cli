@@ -1,8 +1,0 @@
-node_modules
-yarn.lock
-dist/**/*.js
-data
-tmp
-macbook
-macpro
-!dist/.npmignore
